@@ -3,6 +3,10 @@
 
 # ⚡️🔗 ViteConcat
 
+Vite plugin for concatenating files together, handy especially for old projects that used gulp-concat or grunt-concat for concatenating `.js` files together.
+
+Automatically concatenates all `import './paths'` together into single file, additionally you can provide glob of files which should be also concated into single file via `files` option. 
+
 ```js
 import concat from '@vituum/vite-plugin-concat'
 

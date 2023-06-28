@@ -38,12 +38,16 @@ const plugin = (userOptions) => {
             if (options.input.find(input => path.split('?')[0].endsWith(input))) {
                 code = importJs(path.split('?')[0])
 
-                FastGlob.sync(options.files).forEach(entry => {
-                    const path = resolve(resolvedConfig.root, entry)
-                    const file = fs.readFileSync(path).toString()
+                const filesInput = Object.keys(options.files).find(input => path.split('?')[0].endsWith(input))
 
-                    code = code + '\n' + file
-                })
+                if (filesInput) {
+                    FastGlob.sync(options.files[filesInput]).forEach(entry => {
+                        const path = resolve(resolvedConfig.root, entry)
+                        const file = fs.readFileSync(path).toString()
+
+                        code = code + '\n' + file
+                    })
+                }
 
                 return {
                     code
