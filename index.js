@@ -50,7 +50,8 @@ const plugin = (userOptions) => {
                 }
 
                 return {
-                    code
+                    code,
+                    map: null
                 }
             }
 
