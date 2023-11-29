@@ -28,11 +28,20 @@ const plugin = (userOptions) => {
         return content
     }
 
+    const resolvePaths = (files, rootPath) => {
+        const resolvedFiles = {...files}
+        Object.keys(files).forEach(input => {
+            resolvedFiles[input] = files[input].map(entry => resolve(rootPath, entry))
+        })
+        return resolvedFiles
+    }
+
     return {
         name: '@vituum/vite-plugin-concat',
         enforce: 'pre',
         configResolved (config) {
             resolvedConfig = config
+            options.files = resolvePaths(options.files, resolvedConfig.root)
         },
         transform (code, path) {
             if (options.input.find(input => path.split('?')[0].endsWith(input))) {
@@ -42,8 +51,7 @@ const plugin = (userOptions) => {
 
                 if (filesInput) {
                     FastGlob.sync(options.files[filesInput]).forEach(entry => {
-                        const path = resolve(resolvedConfig.root, entry)
-                        const file = fs.readFileSync(path).toString()
+                        const file = fs.readFileSync(entry).toString()
 
                         code = code + '\n' + file
                     })
