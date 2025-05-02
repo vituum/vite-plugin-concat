@@ -60,7 +60,7 @@ const plugin = (userOptions) => {
             }
         },
         transformIndexHtml: {
-            async transform (content, { server }) {
+            async handler (content, { server }) {
                 if (server) {
                     options.input.forEach(input => {
                         content = content.replace(input, `${input}?v=${Date.now().toString(36)}`)
