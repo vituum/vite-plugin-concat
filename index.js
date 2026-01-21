@@ -40,9 +40,8 @@ const plugin = (userOptions) => {
         const filesInput = Object.keys(options.files).find(input => path.split('?')[0].endsWith(input))
 
         if (filesInput) {
-          fs.globSync(options.files[filesInput]).forEach((entry) => {
-            const path = resolve(resolvedConfig.root, entry)
-            const file = fs.readFileSync(path).toString()
+          fs.globSync(options.files[filesInput].map(entry => resolve(resolvedConfig.root, entry))).forEach((entry) => {
+            const file = fs.readFileSync(entry).toString()
 
             code = code + '\n' + file
           })
@@ -50,6 +49,7 @@ const plugin = (userOptions) => {
 
         return {
           code,
+          map: null,
         }
       }
 
