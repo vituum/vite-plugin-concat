@@ -1,5 +1,6 @@
 import { dirname, join, resolve } from 'node:path'
 import fs from 'node:fs'
+import { globSync } from 'tinyglobby'
 
 /**
  * @param {import('@vituum/vite-plugin-concat/types').PluginUserOptions} userOptions
@@ -40,7 +41,7 @@ const plugin = (userOptions) => {
         const filesInput = Object.keys(options.files).find(input => path.split('?')[0].endsWith(input))
 
         if (filesInput) {
-          fs.globSync(options.files[filesInput].map(entry => resolve(resolvedConfig.root, entry))).forEach((entry) => {
+          globSync(options.files[filesInput].map(entry => resolve(resolvedConfig.root, entry))).forEach((entry) => {
             const file = fs.readFileSync(entry).toString()
 
             code = code + '\n' + file
