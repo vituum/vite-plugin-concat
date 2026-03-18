@@ -1,9 +1,16 @@
 {
   "name": "@vituum/vite-plugin-concat",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "main": "index.js",
   "types": "types/index.d.ts",
+  "description": "Vite plugin for concatenating files together, handy especially for old projects that used gulp-concat or grunt-concat ",
+  "keywords": [
+    "concat",
+    "vituum",
+    "vite",
+    "vite-plugin"
+  ],
   "scripts": {
     "lint": "npm run eslint && npm run tsc",
     "tsc": "tsc",
